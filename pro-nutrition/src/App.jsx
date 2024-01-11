@@ -1,14 +1,42 @@
-
+import { Component } from 'react'
 import './App.css'
-import FoodBox from './components/FoodBox'
+// import FoodBox from './components/FoodBox'
+import FoodData from './resources/FoodData'
+import FoodBox from './components/FoodBox';
 
-function App() {
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      filteredData: [...FoodData],
+    };
+  }
 
-  return (
-    <>
-      <FoodBox />
-    </>
-  )
+  render() {
+
+    let handleChange = (event) => {
+      let searchText = event.target.value.toLowerCase()
+    
+
+      let filteredData = FoodData.filter((element) => {
+        return element.name.includes(searchText);
+      });
+
+      this.setState({
+        filteredData: filteredData,
+      });
+    }
+    return(
+      <>
+        <div className="input">
+            <input type="text" onChange={handleChange} placeholder="Search a Food Item" />
+        </div>
+        {this.state.filteredData.map((element,i) => (
+          <FoodBox data = {element} key={i}/>
+        ))}
+      </>
+    )
+  }
 }
 
 export default App

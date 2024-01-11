@@ -1,48 +1,35 @@
-import FoodData from "./resources/FoodData";
-import "./FoodBox.css";
-import { Component } from "react";
-
-class FoodBox extends Component {
-  constructor() {
-    super();
-    this.state = {
-      filteredData: [...FoodData],
-      clickCount : 0
-    };
-  }
-
-  render() {
-
-    let handleChange = (event) => {
-      let searchText = event.target.value.toLowerCase();
-
-      let filteredData = FoodData.filter((element) => {
-        return element.name.includes(searchText);
-      });
-
-      this.setState({
-        filteredData: filteredData,
-      });
-    };
+import { Component } from 'react'
 
 
-    let handleInput = (event) =>{
-        this.setState({
-            clickCount : event.target.value
-        })
+export default class FoodBox extends Component {
+
+    constructor(data){
+        super(data)
+        this.state= {
+            filteredData : data,
+            clickCount : 0,
+            calCount: 0,
+        }
+        
     }
+    
+    render(){
+        let element = this.state.filteredData.data
 
-    let calCount = 0
-    let handleButton = (i)=>{
-        calCount =  this.state.clickCount * this.state.filteredData[i].cal
-    }
-    return (
-      <>
-        <div className="input">
-            <input type="text" onChange={handleChange} placeholder="Search a Food Item" />
-        </div>
-        {this.state.filteredData.map((element , i) => (
-          <div key={i}>
+        let handleInput = (event) =>{
+            this.setState({
+                clickCount : event.target.value
+            })
+        }
+    
+        let handleButton = ()=>{
+          this.setState({
+            calCount : this.state.clickCount * this.state.filteredData.data.cal
+          })
+            
+        }
+        return(
+            <>
             <div className="box" >
               <article className="media">
                 <div className="media-left">
@@ -64,19 +51,15 @@ class FoodBox extends Component {
                       <input className="input" type="number" onChange={handleInput} />
                     </div>
                     <div className="control">
-                      <button className="button is-info" onClick={handleButton(i)}>+</button>
+                      <button className="button is-info" onClick={handleButton}>+</button>
                       <p>{this.state.clickCount}</p>
-                      <p>{calCount}</p>
+                      <p>{this.state.calCount}</p>
                     </div>
                   </div>
                 </div>
               </article>
             </div>
-          </div>
-        ))}
-      </>
-    );
-  }
+          </>
+        )
+    }
 }
-
-export default FoodBox;
