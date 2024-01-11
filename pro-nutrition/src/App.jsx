@@ -1,6 +1,5 @@
 import { Component } from 'react'
 import './App.css'
-// import FoodBox from './components/FoodBox'
 import FoodData from './resources/FoodData'
 import FoodBox from './components/FoodBox';
 
@@ -32,7 +31,7 @@ class App extends Component {
             <input type="text" onChange={handleChange} placeholder="Search a Food Item" />
         </div>
         {this.state.filteredData.map((element,i) => (
-          <FoodBox data = {element} key={i}/>
+          <FoodBox foodItem = {element} key={i}/>
         ))}
       </>
     )

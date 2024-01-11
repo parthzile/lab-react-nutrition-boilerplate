@@ -3,10 +3,10 @@ import { Component } from 'react'
 
 export default class FoodBox extends Component {
 
-    constructor(data){
-        super(data)
+    constructor(foodItem){
+        super(foodItem)
         this.state= {
-            filteredData : data,
+            filteredData : foodItem,
             clickCount : 0,
             calCount: 0,
         }
@@ -14,7 +14,7 @@ export default class FoodBox extends Component {
     }
     
     render(){
-        let element = this.state.filteredData.data
+        let element = this.state.filteredData.foodItem
 
         let handleInput = (event) =>{
             this.setState({
@@ -24,7 +24,7 @@ export default class FoodBox extends Component {
     
         let handleButton = ()=>{
           this.setState({
-            calCount : this.state.clickCount * this.state.filteredData.data.cal
+            calCount : this.state.clickCount * this.state.filteredData.foodItem.cal
           })
             
         }
